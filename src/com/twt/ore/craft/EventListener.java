@@ -32,4 +32,5 @@ public class EventListener implements Listener {
 	public void onBlockBreakEvent(BlockBreakEvent e) {
 		OreCraftMain.itemStacks.remove(e.getBlock().getLocation());
 	}
+
 }
