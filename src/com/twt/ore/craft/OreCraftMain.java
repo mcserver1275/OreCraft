@@ -23,7 +23,7 @@ public class OreCraftMain extends JavaPlugin {
 			int X = (int) getConfig().get(key + ".location.x");
 			int Y = (int) getConfig().get(key + ".location.y");
 			int Z = (int) getConfig().get(key + ".location.z");
-			ItemStack itemStack = (ItemStack) getConfig().get(".item");
+			ItemStack itemStack = (ItemStack) getConfig().get(key + ".item");
 			itemStacks.put(new Location(Bukkit.getWorld(WorldName), X, Y, Z), itemStack);
 		}
 	}
