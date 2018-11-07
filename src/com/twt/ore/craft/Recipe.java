@@ -10,12 +10,10 @@ import org.bukkit.Material;
 import org.bukkit.craftbukkit.v1_13_R2.inventory.CraftItemStack;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapelessRecipe;
-import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.Plugin;
 
 public class Recipe {
-	
-	//public static List<Material> material = new ArrayList<Material>();
+
 	static String[] material = new String[]{ "LEGACY_EMERALD", "LEGACY_DIAMOND", "LEGACY_GOLD_INGOT", "LEGACY_IRON_INGOT", "LAPIS_LAZULI", "LEGACY_COAL", "LEGACY_NETHER_STAR", "DRAGON_BREATH", "EXPERIENCE_BOTTLE" };
 	private static Map<String, String> ItemName = new HashMap<String, String>();
 	
@@ -67,10 +65,6 @@ public class Recipe {
 				break;
 		}
 		return xgname;
-	}
-	
-	public void initRecipe() {
-		this.ItemName.put("绿宝石", "LEGACY_EMERALD");
 	}
 
 }
