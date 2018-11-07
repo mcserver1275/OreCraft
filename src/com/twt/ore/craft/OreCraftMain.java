@@ -16,6 +16,8 @@ public class OreCraftMain extends JavaPlugin {
 	public void onEnable() {
 		Bukkit.getPluginManager().registerEvents(new EventListener(this), this);
 		Recipe.addRecipe(this);
+		
+		reloadConfig();
 		for(String key : getConfig().getKeys(false)) {
 			String WorldName = (String) getConfig().get(key + ".location.world");
 			int X = (int) getConfig().get(key + ".location.x");
