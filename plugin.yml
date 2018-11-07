@@ -1,0 +1,5 @@
+name: OreCraft
+main: com.twt.ore.craft.OreCraftMain
+version: 1.0.1
+api-version: 1.13
+author: _twt && Eisen
