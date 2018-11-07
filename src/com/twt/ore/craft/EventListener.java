@@ -1,6 +1,9 @@
 package com.twt.ore.craft;
 
+import net.minecraft.server.v1_13_R2.ChatComponentText;
 import net.minecraft.server.v1_13_R2.NBTTagCompound;
+import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.craftbukkit.v1_13_R2.inventory.CraftItemStack;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -18,19 +21,29 @@ public class EventListener implements Listener {
 	
 	@EventHandler
 	public void onPlayerPlace(BlockPlaceEvent e) {
-		ItemStack itemStack = e.getItemInHand();
-		net.minecraft.server.v1_13_R2.ItemStack nmsitemstack = CraftItemStack.asNMSCopy(itemStack);
-		NBTTagCompound nbtTagCompound = nmsitemstack.getTag();
+		net.minecraft.server.v1_13_R2.ItemStack item = CraftItemStack.asNMSCopy(e.getItemInHand());
+		NBTTagCompound nbtTagCompound = item.getTag();
 		if(nbtTagCompound != null) {
-			if(nmsitemstack.getTag().getByte("ore") == 1) {
-				OreCraftMain.itemStacks.put(e.getBlockPlaced().getLocation(), itemStack);
+			if(nbtTagCompound.getByte("ore") == 1 && !(nbtTagCompound.getCompound("type").isEmpty())) {
+				this.plugin.itemStacks.put(e.getBlockPlaced().getLocation(), CraftItemStack.asBukkitCopy(net.minecraft.server.v1_13_R2.ItemStack.a(nbtTagCompound.getCompound("type"))));
 			}
 		}
 	}
 
 	@EventHandler
 	public void onBlockBreakEvent(BlockBreakEvent e) {
-		OreCraftMain.itemStacks.remove(e.getBlock().getLocation());
+		Location loc = e.getBlock().getLocation();
+		if(this.plugin.itemStacks.containsKey(loc)) {
+			ItemStack item =  new ItemStack(Material.OAK_SAPLING);
+			net.minecraft.server.v1_13_R2.ItemStack i = CraftItemStack.asNMSCopy(item);
+			i.a(CraftItemStack.asNMSCopy(this.plugin.itemStacks.get(loc)).getName());
+			NBTTagCompound nbt = i.getTag();
+			nbt.setByte("ore", (byte)1);
+			net.minecraft.server.v1_13_R2.ItemStack is = CraftItemStack.asNMSCopy(this.plugin.itemStacks.get(loc));
+			nbt.set("type", is.save(new NBTTagCompound()));
+			e.getPlayer().getInventory().addItem(CraftItemStack.asBukkitCopy(i));
+			this.plugin.itemStacks.remove(loc);
+		}
 	}
 
 }

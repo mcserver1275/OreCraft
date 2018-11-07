@@ -10,14 +10,12 @@ import java.util.Map;
 
 public class OreCraftMain extends JavaPlugin {
 
-	public static Map<Location, ItemStack> itemStacks = new HashMap<>();
+	public static Map<Location, ItemStack> itemStacks = new HashMap<Location, ItemStack>();
 	
 	@Override
 	public void onEnable() {
 		Bukkit.getPluginManager().registerEvents(new EventListener(this), this);
 		Recipe.addRecipe(this);
-
-		reloadConfig();
 		for(String key : getConfig().getKeys(false)) {
 			String WorldName = (String) getConfig().get(key + ".location.world");
 			int X = (int) getConfig().get(key + ".location.x");
@@ -32,13 +30,13 @@ public class OreCraftMain extends JavaPlugin {
 	public void onDisable() {
 		int i = 0;
 		for(Location location : itemStacks.keySet()) {
-			i++;
 			getConfig().set(i + ".location.world", location.getWorld().getName());
 			getConfig().set(i + ".location.x", location.getBlockX());
 			getConfig().set(i + ".location.y", location.getBlockY());
 			getConfig().set(i + ".location.z", location.getBlockZ());
 			getConfig().set(i + ".item", itemStacks.get(location));
-			saveConfig();
+			i++;
 		}
+		saveConfig();
 	}
 }

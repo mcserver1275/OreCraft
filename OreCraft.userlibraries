@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<eclipse-userlibraries>
+  <library name="mc">
+    <archive path="C:/Users/dyalnzho/Desktop/1.13Spigot/mc.jar" />
+  </library>
+  <library name="analytics">
+    <archive path="C:/Users/dyalnzho/.IntelliJIdea2017.3/config/javascript/extLibs/http_www.google-analytics.com_analytics.js" />
+  </library>
+  <library name="jquery-3.2.1">
+    <archive path="C:/Users/dyalnzho/.IntelliJIdea2017.3/config/javascript/extLibs/http_code.jquery.com_jquery-3.2.1.js" />
+  </library>
+</eclipse-userlibraries>
+
