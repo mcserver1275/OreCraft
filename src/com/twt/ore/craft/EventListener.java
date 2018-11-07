@@ -41,7 +41,8 @@ public class EventListener implements Listener {
 			nbt.setByte("ore", (byte)1);
 			net.minecraft.server.v1_13_R2.ItemStack is = CraftItemStack.asNMSCopy(this.plugin.itemStacks.get(loc));
 			nbt.set("type", is.save(new NBTTagCompound()));
-			e.getPlayer().getInventory().addItem(CraftItemStack.asBukkitCopy(i));
+			e.setDropItems(false);
+			loc.getWorld().dropItem(loc, CraftItemStack.asBukkitCopy(i));
 			this.plugin.itemStacks.remove(loc);
 		}
 	}
