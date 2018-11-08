@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import net.minecraft.server.v1_13_R2.ChatComponentText;
+import net.minecraft.server.v1_13_R2.Items;
 import net.minecraft.server.v1_13_R2.NBTTagCompound;
 
 import org.bukkit.Material;
@@ -18,13 +19,15 @@ public class Recipe {
 	private static Map<String, String> ItemName = new HashMap<String, String>();
 	
 	public static void addRecipe(Plugin plugin) {
-		
 		for(String name : material) {
 			ItemStack item =  new ItemStack(Material.OAK_SAPLING);
 			net.minecraft.server.v1_13_R2.ItemStack i = CraftItemStack.asNMSCopy(item);
 			i.a(new ChatComponentText("§b"+replace(name)+"树苗"));
 			NBTTagCompound nbt = i.getTag();
 			nbt.setByte("ore", (byte)1);
+			net.minecraft.server.v1_13_R2.ItemStack is = CraftItemStack.asNMSCopy(new ItemStack(Material.getMaterial(name)));
+			is.a(i.getName());
+			nbt.set("type", is.save(new NBTTagCompound()));
 			ShapelessRecipe sapling = new ShapelessRecipe(CraftItemStack.asBukkitCopy(i));
 			sapling.addIngredient(2, Material.getMaterial(name));
 			sapling.addIngredient(1, Material.OAK_SAPLING);
@@ -63,6 +66,9 @@ public class Recipe {
 			case "EXPERIENCE_BOTTLE":
 				xgname = "附魔之瓶";
 				break;
+				default:
+					xgname = "";
+					break;
 		}
 		return xgname;
 	}
