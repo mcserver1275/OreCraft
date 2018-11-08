@@ -1,15 +1,17 @@
 package com.twt.ore.craft;
 
-import net.minecraft.server.v1_13_R2.ChatComponentText;
-import net.minecraft.server.v1_13_R2.NBTTagCompound;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.block.BlockState;
 import org.bukkit.craftbukkit.v1_13_R2.inventory.CraftItemStack;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.event.world.StructureGrowEvent;
 import org.bukkit.inventory.ItemStack;
+
+import net.minecraft.server.v1_13_R2.NBTTagCompound;
 
 public class EventListener implements Listener {
 	
@@ -20,7 +22,7 @@ public class EventListener implements Listener {
 	}
 	
 	@EventHandler
-	public void onPlayerPlace(BlockPlaceEvent e) {
+	public void onPlayerBlockPlace(BlockPlaceEvent e) {
 		net.minecraft.server.v1_13_R2.ItemStack item = CraftItemStack.asNMSCopy(e.getItemInHand());
 		NBTTagCompound nbtTagCompound = item.getTag();
 		if(nbtTagCompound != null) {
@@ -31,7 +33,7 @@ public class EventListener implements Listener {
 	}
 
 	@EventHandler
-	public void onBlockBreakEvent(BlockBreakEvent e) {
+	public void onPlayerBlockBreak(BlockBreakEvent e) {
 		Location loc = e.getBlock().getLocation();
 		if(this.plugin.itemStacks.containsKey(loc)) {
 			ItemStack item =  new ItemStack(Material.OAK_SAPLING);
@@ -45,6 +47,23 @@ public class EventListener implements Listener {
 			loc.getWorld().dropItem(loc, CraftItemStack.asBukkitCopy(i));
 			this.plugin.itemStacks.remove(loc);
 		}
+	}
+	
+	@EventHandler
+	public void onStructureGrow(StructureGrowEvent e) {
+		if(this.plugin.itemStacks.containsKey(e.getLocation())) {
+			if(!(e.isFromBonemeal())) {
+				for(BlockState block : e.getBlocks()) {
+					if(block.getType().equals(Material.OAK_LEAVES)) {
+						
+					}
+				}
+			}
+		}
+	}
+	
+	public void addArmorStand(Location loc, ItemStack item) {
+		
 	}
 
 }
